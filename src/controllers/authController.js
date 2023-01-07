@@ -40,7 +40,13 @@ router.post('/login', async (req, res) => {
         if (typeof user === 'string') {
             throw user;
         } else {
-            
+            const token = await authService.generateToken({ _id: user._id });
+            res.json({
+                _id: user._id,
+                email: user.email,
+                username: user.username,
+                accessToken: token
+            });
         }
     } catch (err) {
         res.json({ message: err });
