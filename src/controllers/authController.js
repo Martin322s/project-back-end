@@ -11,10 +11,10 @@ router.post('/register', async (req, res) => {
         rePassword } = req.body;
     try {
         if (password !== rePassword) {
-            return res.status(400).json({ message: 'Passwords do not match'});
+            return res.status(400).json({ message: 'Passwords do not match' });
         } else {
             const result = await authService.registerUser({ firstName, lastName, username, email, password });
-            console.log(result);
+
             if (typeof result === 'string') {
                 throw result;
             } else {
@@ -29,6 +29,21 @@ router.post('/register', async (req, res) => {
         }
     } catch (err) {
         res.json(err);
+    }
+});
+
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await authService.loginUser({ username, password });
+
+        if (typeof user === 'string') {
+            throw user;
+        } else {
+            
+        }
+    } catch (err) {
+        res.json({ message: err });
     }
 });
 

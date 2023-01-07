@@ -17,6 +17,22 @@ exports.registerUser = async (userData) => {
     }
 }
 
+exports.loginUser = async ({ username, password }) => {
+    const user = await User.findOne({ username: username });
+
+    if (!user) {
+        return "User not found";
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        return "Invalid password!";
+    } else {
+        return user;
+    }
+}
+
 exports.generateToken = async (userData) => {
     const token = await jwtSign({ _id: userData._id }, SECRET, { expiresIn: '2d' });
     return token;
