@@ -9,6 +9,7 @@ router.post('/register', async (req, res) => {
         email,
         password,
         rePassword } = req.body;
+        
     try {
         if (password !== rePassword) {
             return res.status(400).json({ message: 'Passwords do not match' });

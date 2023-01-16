@@ -11,7 +11,7 @@ app.use(router);
 initializeDatabase()
     .then(() => {
         console.log(">>>>> Database connected successfully! <<<<<");
-        app.listen(port, () => console.log(`>> *Server is working at: http://localhost:${port} * <<`));
+        app.listen(port, () => console.log(`>> * Server is working at: http://localhost:${port} * <<`));
     })
     .catch(err => {
         console.log('>>>>> Database connection error <<<<<');
