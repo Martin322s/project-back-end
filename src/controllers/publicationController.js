@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const router = require('express').Router();
 const publicationService = require('../services/publicationServices');
 
@@ -19,6 +20,18 @@ router.post('/create', async (req, res) => {
     } catch (err) {
         res.json({ message: err });
     }
+});
+
+router.get('/all', async (req, res) => {
+    const publications = await publicationService.getAll();
+    res.json(publications);
+});
+
+router.get('/profile/:ownerId', async (req, res) => {
+    const _ownerId = mongoose.Types.ObjectId(req.params.ownerId);
+    const publications = await publicationService.getAll();
+    const owned = publications.filter(publication => publication._ownerId.toString() === _ownerId.toString());
+    res.json(owned);
 });
 
 module.exports = router;

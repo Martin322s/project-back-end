@@ -5,16 +5,15 @@ router.post('/register', async (req, res) => {
     const {
         firstName,
         lastName,
-        username,
         email,
         password,
-        rePassword } = req.body;
-        
+        rePass } = req.body;
+
     try {
-        if (password !== rePassword) {
+        if (password !== rePass) {
             return res.status(400).json({ message: 'Passwords do not match' });
         } else {
-            const result = await authService.registerUser({ firstName, lastName, username, email, password });
+            const result = await authService.registerUser({ firstName, lastName, email, password });
 
             if (typeof result === 'string') {
                 throw result;
@@ -23,6 +22,8 @@ router.post('/register', async (req, res) => {
                 res.json({
                     _id: result._id,
                     email: result.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
                     username: result.username,
                     accessToken: token
                 });
@@ -34,9 +35,9 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-        const user = await authService.loginUser({ username, password });
+        const user = await authService.loginUser({ email, password });
 
         if (typeof user === 'string') {
             throw user;
@@ -45,12 +46,20 @@ router.post('/login', async (req, res) => {
             res.json({
                 _id: user._id,
                 email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 username: user.username,
                 accessToken: token
             });
         }
     } catch (err) {
         res.json({ message: err });
+    }
+});
+
+router.get('/logout', (req, res) => {
+    if (req.headers['x-authorization']) {
+        res.json();
     }
 });
 
