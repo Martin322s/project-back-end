@@ -12,3 +12,5 @@ exports.getMyPublications = async (ownerId) => await Publication.find().where({ 
 exports.donate = async (publicId, data) => 
     await Publication.findByIdAndUpdate({ _id: publicId },  data);
 
+exports.editPublication = async (publicId, data) => await Publication.findByIdAndUpdate({ _id: publicId}, data);
+exports.deletePublication = async (publicId) => await Publication.findByIdAndDelete({ _id: publicId });

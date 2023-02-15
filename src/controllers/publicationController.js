@@ -57,4 +57,18 @@ router.get('/author/:id', async (req, res) => {
     const author = await getAuthor(userId);
     res.json(author);
 });
+
+router.put('/edit/:id', async (req, res) => {
+    const data = req.body;
+    const publicId = req.params.id;
+    const editted = await publicationService.editPublication(publicId, data);
+    res.json(editted);
+});
+
+router.delete('/delete/:id', async (req, res) => {
+    const publicId = req.params.id;
+    const deleted = await publicationService.deletePublication(publicId);
+    res.json(deleted);
+});
+
 module.exports = router;
