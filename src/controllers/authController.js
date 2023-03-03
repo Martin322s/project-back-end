@@ -22,9 +22,8 @@ router.post('/register', async (req, res) => {
                 res.json({
                     _id: result._id,
                     email: result.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    username: result.username,
+                    firstName: result.firstName,
+                    lastName: result.lastName,
                     accessToken: token
                 });
             }
