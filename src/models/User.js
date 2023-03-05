@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: [6, "The password must be at least 6 characters!"]
     },
-    sharedFilms: [{
+    savedFilms: [{
         type: mongoose.Types.ObjectId,
         ref: 'Publication'
     }]
