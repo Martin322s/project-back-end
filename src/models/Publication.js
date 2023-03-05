@@ -5,6 +5,10 @@ const publicationSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
+    year: {
+        type: Number,
+        required: true
+    },
     category: {
         type: String,
         required: true
@@ -12,6 +16,10 @@ const publicationSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         required: true,
+    },
+    trailerUrl: {
+        type: String,
+        required: true
     },
     content: {
         type: String,

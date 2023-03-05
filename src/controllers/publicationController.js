@@ -5,7 +5,7 @@ const publicationService = require('../services/publicationServices');
 const { getOne } = require('../services/publicationServices');
 
 router.post('/create', async (req, res) => {
-    const { title, category, imageUrl, content, _ownerId } = req.body;
+    const { title, year, category, imageUrl, trailerUrl, content, _ownerId } = req.body;
 
     try {
         if (title == "" || category == "" || content == "" || imageUrl == "") {
@@ -13,8 +13,10 @@ router.post('/create', async (req, res) => {
         } else {
             const publication = await publicationService.createPublication({
                 title,
+                year,
                 category,
                 imageUrl,
+                trailerUrl,
                 content,
                 _ownerId
             });
