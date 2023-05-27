@@ -64,6 +64,14 @@ router.get('/logout', (req, res) => {
 });
 
 router.post('/contact', (req, res) => {
+    const { firstName, lastName, email, message } = req.body;
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'marti.sofroniev0408@gmail.com',
+          pass: '01234567890Drew'
+        }
+      });
     console.log(req.body);
 });
 
