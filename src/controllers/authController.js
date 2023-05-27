@@ -66,13 +66,29 @@ router.get('/logout', (req, res) => {
 router.post('/contact', (req, res) => {
     const { firstName, lastName, email, message } = req.body;
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.abv.bg',
+        port: 465,
         auth: {
-          user: 'marti.sofroniev0408@gmail.com',
-          pass: '01234567890Drew'
+            user: 'marti.sofroniev12@abv.bg',
+            pass: '01234567890mero'
         }
-      });
-    console.log(req.body);
+    });
+
+    const mailOptions = {
+        from: email,
+        to: 'marti.sofroniev12@abv.bg',
+        subject: `${firstName} ${lastName}`,
+        text: message
+    }
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log('Error occurred:', error.message)
+        } else {
+            console.log('Email sent successfully!');
+            console.log('Message ID:', info.messageId);
+        }
+    });
 });
 
 module.exports = router;
