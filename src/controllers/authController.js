@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const authService = require('../services/authServices');
+const nodemailer = require('nodemailer');
 
 router.post('/register', async (req, res) => {
     const {
@@ -60,6 +61,10 @@ router.get('/logout', (req, res) => {
     if (req.headers['x-authorization']) {
         res.json();
     }
+});
+
+router.post('/contact', (req, res) => {
+    console.log(req.body);
 });
 
 module.exports = router;
