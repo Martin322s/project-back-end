@@ -65,28 +65,30 @@ router.get('/logout', (req, res) => {
 
 router.post('/contact', (req, res) => {
     const { firstName, lastName, email, message } = req.body;
+    const topic = `${firstName} ${lastName}`;
+
     const transporter = nodemailer.createTransport({
-        host: 'smtp.abv.bg',
-        port: 465,
+        service: 'gmail',
         auth: {
-            user: 'marti.sofroniev12@abv.bg',
-            pass: '01234567890mero'
-        }
+            user: 'm.sofroniev12@gmail.com', // Replace with your email
+            pass: '01234567890Drew', // Replace with your email password or App Password
+        },
     });
 
     const mailOptions = {
         from: email,
-        to: 'marti.sofroniev12@abv.bg',
-        subject: `${firstName} ${lastName}`,
-        text: message
-    }
+        to: 'm.sofroniev12@gmail.com', // Replace with your email
+        subject: topic,
+        text: message,
+    };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log('Error occurred:', error.message)
+            console.log(error);
+            res.json({ message: 'Error occurred while sending the email.'});
         } else {
-            console.log('Email sent successfully!');
-            console.log('Message ID:', info.messageId);
+            console.log('Email sent: ' + info.response);
+            res.json({message: 'Thank you for contacting us! Your email has been sent.'});
         }
     });
 });
